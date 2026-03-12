@@ -1,6 +1,7 @@
 #include <fstream>
 #include "linalg.hpp"
 
+using namespace algebra;
 using namespace linalg;
 
 int main() {

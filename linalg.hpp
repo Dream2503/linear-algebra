@@ -3,8 +3,6 @@
 #include "algebra/algebra.hpp"
 
 namespace linalg {
-    using namespace algebra;
-
     inline struct FormatSettings {
         bool verbose = false;
         std::ostream* out = &std::cout;

@@ -355,25 +355,26 @@ public:
     }
 
 
-    static std::tuple<Matrix<Fraction>, Matrix<Variable>, Matrix<Fraction>> from_equations(const std::vector<Equation>& equations) {
+    static std::tuple<Matrix<algebra::Fraction>, Matrix<algebra::Variable>, Matrix<algebra::Fraction>>
+    from_equations(const std::vector<algebra::Equation>& equations) {
         const uint32_t size = equations.size();
-        Matrix<Fraction> B(size, 1);
-        std::set<Variable> variables;
+        Matrix<algebra::Fraction> B(size, 1);
+        std::set<algebra::Variable> variables;
 
         for (uint32_t i = 0; i < size; i++) {
-            for (const Variable& variable : equations[i].lhs.expression) {
+            for (const algebra::Variable& variable : equations[i].lhs.expression) {
                 variables.insert(variable.basis());
             }
-            B[i, 0] = static_cast<Fraction>(equations[i].rhs);
+            B[i, 0] = static_cast<algebra::Fraction>(equations[i].rhs);
         }
-        Matrix<Fraction> A(size, variables.size());
+        Matrix<algebra::Fraction> A(size, variables.size());
 
         for (uint32_t i = 0; i < size; i++) {
-            for (const Variable& variable : equations[i].lhs.expression) {
+            for (const algebra::Variable& variable : equations[i].lhs.expression) {
                 A[i, std::distance(variables.begin(), variables.find(variable.basis()))] = variable.coefficient;
             }
         }
-        return {A, Matrix<Variable>(std::vector(variables.begin(), variables.end()), variables.size(), 1), B};
+        return {A, Matrix<algebra::Variable>(std::vector(variables.begin(), variables.end()), variables.size(), 1), B};
     }
 };
 
